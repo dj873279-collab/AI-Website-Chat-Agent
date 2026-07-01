@@ -1,0 +1,17 @@
+[
+  {
+    "title": "Services",
+    "url": "/services",
+    "content": "We provide web development, mobile app development, AI solutions, and cloud consulting."
+  },
+  {
+    "title": "About",
+    "url": "/about",
+    "content": "Our company specializes in modern software solutions for startups and enterprises."
+  },
+  {
+    "title": "Contact",
+    "url": "/contact",
+    "content": "You can contact us through our website contact form or email support."
+  }
+]
