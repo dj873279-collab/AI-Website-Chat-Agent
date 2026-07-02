@@ -3,7 +3,8 @@ import { useState } from "react";
 export default function App() {
   const [message, setMessage] = useState("");
   const [messages, setMessages] = useState([]);
-const [showForm, setShowForm] = useState(false);
+  const [showForm, setShowForm] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
 
 const [name, setName] = useState("");
 const [email, setEmail] = useState("");
@@ -73,7 +74,39 @@ const submitLead = async () => {
   setPhone("");
 };
   return (
-    <div style={{ padding: "20px", maxWidth: "600px", margin: "auto" }}>
+    <>
+  {!isOpen && (
+    <button
+      onClick={() => setIsOpen(true)}
+      style={{
+        position: "fixed",
+        bottom: "20px",
+        right: "20px",
+        width: "60px",
+        height: "60px",
+        borderRadius: "50%",
+        fontSize: "24px",
+        cursor: "pointer"
+      }}
+    >
+      💬
+    </button>
+  )}
+
+  {isOpen && (
+    <div
+      style={{
+        position: "fixed",
+        bottom: "20px",
+        right: "20px",
+        width: "350px",
+        background: "white",
+        border: "1px solid #ccc",
+        borderRadius: "10px",
+        padding: "10px",
+        boxShadow: "0 0 10px rgba(0,0,0,0.2)"
+      }}
+    >
       <h1>AI Website Chat Agent</h1>
 
       <div
@@ -157,6 +190,17 @@ const submitLead = async () => {
   </div>
 )}
 
+<button
+  onClick={() => setIsOpen(false)}
+  style={{
+    marginTop: "10px"
+  }}
+>
+  Close
+</button>
+
 </div>
+)}
+</>
   );
 }
