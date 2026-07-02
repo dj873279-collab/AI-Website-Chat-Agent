@@ -20,7 +20,9 @@ const [phone, setPhone] = useState("");
 
     setMessages((prev) => [...prev, userMessage]);
 
-    const response = await fetch("http://localhost:5000/api/chat", {
+    const response = await fetch(
+  "https://ai-website-chat-agent-backend.onrender.com/api/chat",
+  {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
@@ -48,8 +50,8 @@ if (data.found === false) {
   };
 const submitLead = async () => {
   const response = await fetch(
-    "http://localhost:5000/api/contact",
-    {
+  "https://ai-website-chat-agent-backend.onrender.com/api/contact",
+  {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
