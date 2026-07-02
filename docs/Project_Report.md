@@ -217,3 +217,17 @@ https://github.com/dj873279-collab/AI-Website-Chat-Agent
 # 10. Conclusion
 
 The project successfully meets the assignment requirements by providing an embeddable AI-powered chatbot capable of answering website-related questions and converting unanswered queries into business leads through automated contact form escalation.
+
+# 11. Screenshots
+
+## Chat Response
+![Chat Response](screenshots/chat-response.png)
+
+## Contact Form Escalation
+![Contact Form](screenshots/contact-form.png)
+
+## Widget Integration
+![Widget Demo](screenshots/widget-demo.png)
+
+## Repository
+![GitHub Repository](screenshots/github-repo.png)
