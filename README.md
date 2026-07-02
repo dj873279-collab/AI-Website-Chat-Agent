@@ -1,16 +1,230 @@
-# React + Vite
+# AI Website Chat Agent
+Live Demo: https://ai-website-chat-agent.vercel.app
 
-This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
+Backend API: https://ai-website-chat-agent-backend.onrender.com
 
-Currently, two official plugins are available:
+## Overview
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+AI Website Chat Agent is a full-stack embeddable chatbot that answers user queries using indexed website content. If the chatbot cannot find a relevant answer, it automatically escalates the conversation to a contact form and captures the user's details as a lead.
 
-## React Compiler
+The project is designed to be embedded into any website using a lightweight JavaScript widget.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+---
 
-## Expanding the Oxlint configuration
+## Features
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and Oxlint's TypeScript related rules in your project.
+### AI Chat Interface
+
+* Floating chat widget
+* Expand/collapse functionality
+* User and bot messaging
+* Scrollable chat history
+* Responsive design
+
+### Content-Based Question Answering
+
+* Searches indexed website content
+* Returns relevant answers
+* Supports source references
+
+### Contact Form Escalation
+
+* Detects unanswered queries
+* Displays contact form automatically
+* Captures:
+
+  * Name
+  * Email
+  * Phone Number
+  * Message
+
+### Lead Management
+
+* Stores lead information in JSON format
+* Generates unique lead IDs
+* Backend API for lead submission
+
+### Embeddable Widget
+
+* Can be embedded into any website
+* Isolated from host website styling
+* Mobile and desktop compatible
+
+---
+
+## Tech Stack
+
+### Frontend
+
+* React
+* Vite
+
+### Backend
+
+* Node.js
+* Express
+
+### Storage
+
+* JSON-based knowledge base
+* JSON-based lead storage
+
+### Deployment
+
+* Vercel (Frontend)
+* Render (Backend)
+
+### Version Control
+
+* Git
+* GitHub
+
+---
+
+## Project Structure
+
+```text
+AI-Website-Chat-Agent/
+│
+├── backend/
+│   ├── data/
+│   │   └── content.json
+│   ├── leads.json
+│   ├── database.js
+│   └── server.js
+│
+├── widget/
+│   ├── chat-widget.js
+│   └── demo.html
+│
+├── src/
+├── public/
+├── docs/
+├── scraper/
+│
+├── package.json
+├── vite.config.js
+└── README.md
+```
+
+---
+
+## API Endpoints
+
+### Chat API
+
+**POST** `/api/chat`
+
+Request:
+
+```json
+{
+  "message": "What services do you provide?"
+}
+```
+
+Response:
+
+```json
+{
+  "answer": "We provide web development services...",
+  "source": "/services",
+  "found": true
+}
+```
+
+---
+
+### Contact API
+
+**POST** `/api/contact`
+
+Request:
+
+```json
+{
+  "name": "John Doe",
+  "email": "john@example.com",
+  "phone": "9876543210",
+  "message": "Need more information"
+}
+```
+
+Response:
+
+```json
+{
+  "success": true,
+  "leadId": 123456789
+}
+```
+
+---
+
+## Deployment
+
+### Frontend
+
+https://ai-website-chat-agent.vercel.app
+
+### Backend
+
+https://ai-website-chat-agent-backend.onrender.com
+
+---
+
+## Widget Integration
+
+Add the following script to any website:
+
+```html
+<script src="chat-widget.js"></script>
+<script>
+  ChatWidget.init({
+    websiteId: "demo-site"
+  });
+</script>
+```
+
+The widget loads independently and can be embedded into external websites without affecting existing page styles.
+
+---
+
+## Workflow
+
+1. User opens website
+2. Chat widget appears
+3. User asks a question
+4. System searches indexed website content
+5. Relevant answer is returned
+6. If no answer is found:
+
+   * Contact form is displayed
+   * User submits details
+   * Lead is stored
+
+---
+
+## Live Demo
+
+Frontend:
+https://ai-website-chat-agent.vercel.app
+
+Backend:
+https://ai-website-chat-agent-backend.onrender.com
+
+---
+
+## Repository
+
+GitHub:
+https://github.com/dj873279-collab/AI-Website-Chat-Agent
+
+---
+
+## Author
+
+Darshil Joshi
+
+Internship Assignment: AI-Powered Website Chat Agent with Contact Form Escalation
+
