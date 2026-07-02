@@ -1,24 +1,23 @@
-const sqlite3 = require("sqlite3").verbose();
+const fs = require("fs");
+const path = require("path");
 
-const db = new sqlite3.Database("./leads.db", (err) => {
-  if (err) {
-    console.error(err.message);
-  } else {
-    console.log("Connected to SQLite database.");
-  }
-});
+const leadsFile = path.join(__dirname, "leads.json");
 
-db.serialize(() => {
-  db.run(`
-    CREATE TABLE IF NOT EXISTS leads (
-      id INTEGER PRIMARY KEY AUTOINCREMENT,
-      name TEXT NOT NULL,
-      email TEXT NOT NULL,
-      phone TEXT,
-      message TEXT NOT NULL,
-      created_at DATETIME DEFAULT CURRENT_TIMESTAMP
-    )
-  `);
-});
+function saveLead(lead) {
+  const leads = JSON.parse(fs.readFileSync(leadsFile, "utf8"));
 
-module.exports = db;
+  lead.id = Date.now();
+
+  leads.push(lead);
+
+  fs.writeFileSync(
+    leadsFile,
+    JSON.stringify(leads, null, 2)
+  );
+
+  return lead.id;
+}
+
+module.exports = {
+  saveLead
+};
