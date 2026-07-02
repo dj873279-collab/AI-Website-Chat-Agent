@@ -37,6 +37,12 @@ app.post("/api/contact", (req, res) => {
     });
   }
 });
+app.get("/api/test", (req, res) => {
+  res.json({
+    success: true,
+    message: "API route working"
+  });
+});
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });
