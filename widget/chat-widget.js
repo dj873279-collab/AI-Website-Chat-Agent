@@ -18,7 +18,7 @@ window.ChatWidget = {
 
     const iframe = document.createElement("iframe");
 
-    iframe.src = "http://localhost:5173";
+    iframe.src = "https://ai-website-chat-agent.vercel.app";
 
     iframe.style.position = "fixed";
     iframe.style.bottom = "90px";
