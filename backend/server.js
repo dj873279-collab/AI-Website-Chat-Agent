@@ -2,8 +2,23 @@ const express = require("express");
 const cors = require("cors");
 const content = require("./data/content.json");
 const db = require("./database");
+const embeddings = require("./data/embeddings.json");
+const cosineSimilarity = require("./similarity");
+const { pipeline } = require("@xenova/transformers");
 
 const app = express();
+let extractor;
+
+(async () => {
+  console.log("Loading AI model...");
+
+  extractor = await pipeline(
+    "feature-extraction",
+    "Xenova/all-MiniLM-L6-v2"
+  );
+
+  console.log("AI model loaded!");
+})();
 
 app.use(cors());
 app.use(express.json());
@@ -13,65 +28,68 @@ const PORT = 5000;
 app.get("/", (req, res) => {
   res.send("AI Chat Agent Backend Running!");
 });
-app.post("/api/chat", (req, res) => {
+app.post("/api/chat", async (req, res) => {
   const { message } = req.body;
-
   if (!message) {
-    return res.status(400).json({
-      answer: "Message is required"
-    });
+  return res.status(400).json({
+    answer: "Message is required"
+  });
+}
+
+  const query = message.toLowerCase().trim();
+  if (["hi", "hello", "hey"].includes(query)) {
+  return res.json({
+    answer: "Hello! How can I help you today?",
+    found: true
+  });
+}
+
+if (!extractor) {
+  return res.status(503).json({
+    answer: "AI model is still loading. Please try again.",
+    found: false
+  });
+}
+ const queryEmbedding = await extractor(
+  message,
+  {
+    pooling: "mean",
+    normalize: true
   }
+);
 
-  const query = message.toLowerCase();
+let bestMatch = null;
+let bestScore = -1;
 
-  let bestMatch = null;
+for (const item of embeddings) {
+  const score = cosineSimilarity(
+    Array.from(queryEmbedding.data),
+    item.embedding
+  );
 
-  for (const item of content) {
-    if (
-      item.title.toLowerCase().includes(query) ||
-      item.content.toLowerCase().includes(query)
-    ) {
-      bestMatch = item;
-      break;
-    }
+  if (score > bestScore) {
+    bestScore = score;
+    bestMatch = item;
   }
+}
 
-  if (bestMatch) {
-    return res.json({
-      answer: bestMatch.content,
-      source: bestMatch.url,
-      found: true
-    });
-  }
+console.log("Best Match:", bestMatch.title);
+console.log("Score:", bestScore);
 
+  if (bestScore < 0.25) {
   return res.json({
     answer: "Sorry, I couldn't find that information.",
     found: false
   });
-});
-app.post("/api/contact", (req, res) => {
-  const { name, email, phone, message } = req.body;
+}
 
-  try {
-    const leadId = db.saveLead({
-      name,
-      email,
-      phone,
-      message,
-      created_at: new Date().toISOString()
-    });
-
-    res.json({
-      success: true,
-      leadId
-    });
-  } catch (err) {
-    res.status(500).json({
-      success: false,
-      error: err.message
-    });
-  }
+ return res.json({
+  answer: bestMatch.content,
+  source: bestMatch.url,
+  found: true
 });
+});
+
 app.get("/api/test", (req, res) => {
   res.json({
     success: true,
