@@ -5,10 +5,10 @@ export default function App() {
   const [messages, setMessages] = useState([]);
   const [showForm, setShowForm] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
-
-const [name, setName] = useState("");
-const [email, setEmail] = useState("");
-const [phone, setPhone] = useState("");
+  const [isTyping, setIsTyping] = useState(false);
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [phone, setPhone] = useState("");
 
   const sendMessage = async () => {
     if (!message.trim()) return;
@@ -19,7 +19,7 @@ const [phone, setPhone] = useState("");
     };
 
     setMessages((prev) => [...prev, userMessage]);
-
+    setIsTyping(true);
     const response = await fetch(
   "https://ai-website-chat-agent-backend.onrender.com/api/chat",
   {
@@ -33,18 +33,24 @@ const [phone, setPhone] = useState("");
     });
 
     const data = await response.json();
+    await new Promise((resolve) =>
+  setTimeout(resolve, 1000)
+);
+
+setIsTyping(false);
 
 if (data.found === false) {
   setShowForm(true);
 }
 
     setMessages((prev) => [
-      ...prev,
-      {
-        sender: "bot",
-        text: data.answer
-      }
-    ]);
+  ...prev,
+  {
+    sender: "bot",
+    text: data.answer,
+    source: data.source
+  }
+]);
 
     setMessage("");
   };
@@ -109,7 +115,16 @@ const submitLead = async () => {
         boxShadow: "0 0 10px rgba(0,0,0,0.2)"
       }}
     >
-      <h1>AI Website Chat Agent</h1>
+      <h1>AI Assistant</h1>
+
+<p
+  style={{
+    fontSize: "12px",
+    color: "#666"
+  }}
+>
+  Ask me about our services, company, or support.
+</p>
 
       <div
         style={{
@@ -127,14 +142,42 @@ const submitLead = async () => {
               textAlign: msg.sender === "user" ? "right" : "left",
               marginBottom: "10px"
             }}
+          
           >
             <strong>{msg.sender}:</strong> {msg.text}
+
+{msg.source && (
+  <div
+    style={{
+      fontSize: "12px",
+      color: "#666",
+      marginTop: "4px"
+    }}
+  >
+    Source: {msg.source}
+  </div>
+)}
           </div>
         ))}
+        {isTyping && (
+  <div
+    style={{
+      fontStyle: "italic",
+      color: "#666"
+    }}
+  >
+    Bot is typing...
+  </div>
+)}
       </div>
 
       <input
         value={message}
+        onKeyDown={(e) => {
+  if (e.key === "Enter") {
+    sendMessage();
+  }
+}}
         onChange={(e) => setMessage(e.target.value)}
         placeholder="Ask a question..."
         style={{

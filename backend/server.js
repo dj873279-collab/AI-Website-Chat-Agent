@@ -37,7 +37,17 @@ app.post("/api/chat", async (req, res) => {
 }
 
   const query = message.toLowerCase().trim();
-  if (["hi", "hello", "hey"].includes(query)) {
+
+  const greetings = [
+  "hi",
+  "hello",
+  "hey",
+  "good morning",
+  "good afternoon",
+  "good evening"
+];
+
+if (greetings.includes(query)) {
   return res.json({
     answer: "Hello! How can I help you today?",
     found: true
@@ -75,10 +85,15 @@ for (const item of embeddings) {
 
 console.log("Best Match:", bestMatch.title);
 console.log("Score:", bestScore);
+console.log(
+  bestScore >= 0.25
+    ? "High confidence answer"
+    : "Low confidence - triggering contact form"
+);
 
   if (bestScore < 0.25) {
   return res.json({
-    answer: "Sorry, I couldn't find that information.",
+    answer: "I couldn't find information related to your question. Please leave your contact details and our team will get back to you.",
     found: false
   });
 }
