@@ -1,17 +1,7 @@
 [
   {
-    "title": "Services",
-    "url": "/services",
-    "content": "We provide web development, mobile app development, AI solutions, cloud consulting, software engineering services, startup technology consulting, digital transformation services, enterprise software solutions and custom application development."
-  },
-  {
-    "title": "About",
-    "url": "/about",
-    "content": "Our company specializes in modern software solutions for startups and enterprises."
-  },
-  {
-    "title": "Contact",
-    "url": "/contact",
-    "content": "Contact information for customer support, sales inquiries, partnership requests and general assistance. Reach us through our website contact form or support email."
+    "title": "Example Domain",
+    "content": "This domain is for use in documentation examples without needing permission. Avoid use in operations.",
+    "url": "https://example.com"
   }
 ]

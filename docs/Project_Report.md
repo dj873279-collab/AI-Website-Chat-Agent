@@ -33,25 +33,17 @@ This project addresses that problem by:
 
 # 3. System Architecture
 
-User Website
-↓
-Embeddable Chat Widget
-↓
-React Frontend (Vercel)
-↓
-Express Backend API (Render)
-↓
-Knowledge Base (content.json)
-
-For unanswered questions:
-
-User
-↓
-Contact Form
-↓
-Contact API
-↓
-Lead Storage
+Scraper
+    ↓
+content.json
+    ↓
+Embeddings Generator
+    ↓
+embeddings.json
+    ↓
+Semantic Search Engine
+    ↓
+Chatbot UI
 
 ---
 
@@ -291,6 +283,10 @@ Allow users to seamlessly transfer conversations to human support agents when co
 ### 8. Voice Interaction
 
 Add speech-to-text and text-to-speech capabilities to improve accessibility and user experience across devices.
+
+### 9. Enhanced Content Crawling
+
+The current scraper demonstrates automated content ingestion from a single webpage. Future versions can support multi-page crawling, sitemap discovery, scheduled indexing, and automatic embedding regeneration.
 
 ---
 

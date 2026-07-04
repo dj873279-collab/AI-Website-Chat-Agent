@@ -99,6 +99,10 @@ Benefits:
 * Better user experience
 * Improved retrieval quality
 
+### Website Content Ingestion
+
+A scraper module is included to support automated website content ingestion. The scraper extracts headings and related content from webpages and converts them into structured data that can be indexed by the semantic search engine.
+
 ## Tech Stack
 
 ### Frontend
@@ -135,22 +139,54 @@ AI-Website-Chat-Agent/
 │
 ├── backend/
 │   ├── data/
-│   │   └── content.json
-│   ├── leads.json
+│   │   ├── content.json
+│   │   └── embeddings.json
+│   │
+│   ├── server.js
 │   ├── database.js
-│   └── server.js
+│   ├── similarity.js
+│   ├── generateEmbeddings.js
+│   ├── semanticTest.js
+│   ├── testSearch.js
+│   ├── package.json
+│   └── package-lock.json
+│
+├── frontend/
+│   ├── public/
+│   │   ├── favicon.svg
+│   │   └── icons.svg
+│   │
+│   ├── src/
+│   │   ├── assets/
+│   │   │   ├── hero.png
+│   │   │   ├── react.svg
+│   │   │   └── vite.svg
+│   │   │
+│   │   ├── App.jsx
+│   │   ├── App.css
+│   │   ├── main.jsx
+│   │   └── index.css
+│   │
+│   ├── index.html
+│   ├── vite.config.js
+│   ├── package.json
+│   └── package-lock.json
+│
+├── scraper/
+│   ├── scrape.js
+│   ├── package.json
+│   └── package-lock.json
+│
+├── docs/
+│   └── screenshots/
+│       ├── chat-response.png
+│       ├── contact-form.png
+│       ├── widget-demo.png
+│       └── github-repo.png
 │
 ├── widget/
-│   ├── chat-widget.js
-│   └── demo.html
 │
-├── src/
-├── public/
-├── docs/
-├── scraper/
-│
-├── package.json
-├── vite.config.js
+├── .gitignore
 └── README.md
 ```
 
