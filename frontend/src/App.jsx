@@ -152,37 +152,48 @@ const submitLead = async () => {
           marginBottom: "10px"
         }}
       >
-        <div
-  style={{
-    display: "inline-block",
-    padding: "10px",
-    borderRadius: "12px",
-    maxWidth: "80%",
-    background:
-      msg.sender === "user"
-        ? "#2563eb"
-        : "#f3f4f6",
-    color:
-      msg.sender === "user"
-        ? "white"
-        : "black"
-  }}
->
-  {msg.text}
-
-  {msg.source && (
+        {messages.map((msg, index) => (
+  <div
+    key={index}
+    style={{
+      textAlign: msg.sender === "user" ? "right" : "left",
+      marginBottom: "10px"
+    }}
+  >
     <div
       style={{
-        fontSize: "11px",
-        marginTop: "5px",
-        opacity: 0.7
+        display: "inline-block",
+        padding: "10px",
+        borderRadius: "12px",
+        maxWidth: "80%",
+        background:
+          msg.sender === "user"
+            ? "#2563eb"
+            : "#f3f4f6",
+        color:
+          msg.sender === "user"
+            ? "white"
+            : "black"
       }}
     >
-      Source: {msg.source}
+      {msg.text}
+
+      {msg.source && (
+        <div
+          style={{
+            fontSize: "11px",
+            marginTop: "5px",
+            opacity: 0.7
+          }}
+        >
+          Source: {msg.source}
+        </div>
+      )}
     </div>
-  )}
-</div>
-        {isTyping && (
+  </div>
+))}
+
+{isTyping && (
   <div
     style={{
       fontStyle: "italic",
