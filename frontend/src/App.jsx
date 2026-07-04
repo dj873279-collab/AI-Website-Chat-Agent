@@ -2,7 +2,12 @@ import { useState } from "react";
 
 export default function App() {
   const [message, setMessage] = useState("");
-  const [messages, setMessages] = useState([]);
+  const [messages, setMessages] = useState([
+  {
+    sender: "bot",
+    text: "Hello! I'm your AI assistant. Ask me about our services, company, or support."
+  }
+]);
   const [showForm, setShowForm] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
   const [isTyping, setIsTyping] = useState(false);
@@ -115,16 +120,27 @@ const submitLead = async () => {
         boxShadow: "0 0 10px rgba(0,0,0,0.2)"
       }}
     >
-      <h1>AI Assistant</h1>
-
-<p
+      <div
   style={{
-    fontSize: "12px",
-    color: "#666"
+    background: "#2563eb",
+    color: "white",
+    padding: "12px",
+    borderRadius: "8px",
+    marginBottom: "10px"
   }}
 >
-  Ask me about our services, company, or support.
-</p>
+  <h3
+    style={{
+      margin: 0
+    }}
+  >
+    AI Assistant
+  </h3>
+
+  <small>
+    Online • Ready to help
+  </small>
+</div>
 
       <div
         style={{

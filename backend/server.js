@@ -34,7 +34,7 @@ app.post("/api/chat", async (req, res) => {
   return res.status(400).json({
     answer: "Message is required"
   });
-}
+
 
   const query = message.toLowerCase().trim();
 

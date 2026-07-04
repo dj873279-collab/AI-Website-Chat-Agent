@@ -13,44 +13,91 @@ The project is designed to be embedded into any website using a lightweight Java
 
 ## Features
 
-### AI Chat Interface
+### AI-Powered Chat Assistant
 
-* Floating chat widget
-* Expand/collapse functionality
-* User and bot messaging
-* Scrollable chat history
-* Responsive design
+* Answers user questions using website content
+* Semantic search using sentence embeddings
+* Context-aware response retrieval
+* Greeting and basic conversation handling
 
-### Content-Based Question Answering
+### Intelligent Search Layer
 
-* Searches indexed website content
-* Returns relevant answers
-* Supports source references
+* Embedding-based semantic similarity matching
+* Confidence score evaluation
+* Automatic fallback for low-confidence responses
+* Source attribution for retrieved answers
 
 ### Contact Form Escalation
 
-* Detects unanswered queries
-* Displays contact form automatically
-* Captures:
+* Triggered when no suitable answer is found
+* Collects:
 
   * Name
   * Email
   * Phone Number
-  * Message
+* Stores lead information through backend API
 
-### Lead Management
+### Chat Widget
 
-* Stores lead information in JSON format
-* Generates unique lead IDs
-* Backend API for lead submission
+* Floating chat launcher
+* Expand/collapse functionality
+* Typing indicator
+* Conversation history
+* Enter-to-send support
+* Responsive design
 
-### Embeddable Widget
+### Backend APIs
 
-* Can be embedded into any website
-* Isolated from host website styling
-* Mobile and desktop compatible
+* POST /api/chat
+* POST /api/contact
+* Semantic retrieval engine
+* Lead management system
 
----
+### Deployment
+
+* Frontend deployed on Vercel
+* Backend deployed on Render
+* Embeddable widget architecture
+
+## System Architecture
+
+User
+↓
+Chat Widget (React Frontend)
+↓
+Chat API (Node.js + Express)
+↓
+Semantic Search Layer
+↓
+Embeddings Database (embeddings.json)
+↓
+Website Content (content.json)
+
+If confidence score is low:
+↓
+Contact Form Escalation
+↓
+Lead Storage
+
+## Semantic Search Implementation
+
+The chatbot uses embedding-based semantic retrieval instead of simple keyword matching.
+
+Workflow:
+
+1. Website content is stored in content.json
+2. Embeddings are generated using Xenova/all-MiniLM-L6-v2
+3. User queries are converted into embeddings
+4. Cosine similarity is calculated against indexed content
+5. The highest-scoring result is returned
+6. If confidence is below the threshold (0.25), the chatbot triggers contact form escalation
+
+Benefits:
+
+* Handles paraphrased questions
+* More accurate than keyword matching
+* Better user experience
+* Improved retrieval quality
 
 ## Tech Stack
 
